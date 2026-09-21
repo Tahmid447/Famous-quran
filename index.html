@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071913" />
+  <meta name="description" content="A curated Qur'an recitation and study library with exact Mushaf scan links, translations, tafsir, audio, and authentic hadith sources." />
+  <title>Famous Qur'an — Recitation & Study Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-row">
+      <a class="brand" href="#top" aria-label="Famous Qur'an home">
+        <span class="brand-mark">ق</span>
+        <span><b>Famous Qur'an</b><small id="brandSub">Recitation & study library</small></span>
+      </a>
+      <nav class="nav-actions" aria-label="Main controls">
+        <button class="icon-btn" id="favoritesToggle" type="button" title="Favorites">★</button>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="lang-btn active" data-lang="en" type="button">English</button>
+          <button class="lang-btn" data-lang="bn" type="button">বাংলা</button>
+          <button class="lang-btn" data-lang="hi" type="button">हिन्दी</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow" id="heroEyebrow">Curated recitation collection</div>
+        <h1 id="heroTitle">Beautiful passages with a <em>build → rise → climax</em></h1>
+        <p id="heroText">Open any selection to study every ayah with Arabic, translation, explanation, Mishary Alafasy audio, your personal notes, and source links. The <b>Exact Mushaf</b> button opens the same scanned Mushaf style you shared.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#library" id="exploreBtn">Explore Top 30</a>
+          <button class="btn" id="hadithJump" type="button">Authentic Hadith</button>
+        </div>
+      </div>
+      <aside class="source-card">
+        <div class="source-kicker" id="sourceKicker">Source-first by design</div>
+        <h2 id="sourceTitle">No anonymous translations.</h2>
+        <p id="sourceText">Qur'an translations are loaded from QuranEnc. Arabic/audio come from AlQuran Cloud. English tafsir uses Ibn Kathir via Al Furqan API. Hadith material is loaded from HadeethEnc and clearly attributed.</p>
+        <div class="source-badges"><span>QuranEnc</span><span>AlQuran Cloud</span><span>HadeethEnc</span><span>Ibn Kathir</span></div>
+      </aside>
+    </section>
+
+    <section class="trust-strip">
+      <div class="wrap trust-grid">
+        <div><b>30</b><span id="statCurated">curated passages</span></div>
+        <div><b>3</b><span id="statLangs">primary languages</span></div>
+        <div><b>Ayah-by-ayah</b><span id="statStudy">translation + explanation</span></div>
+        <div><b>Exact Mushaf</b><span id="statScan">original scan links</span></div>
+      </div>
+    </section>
+
+    <section id="library" class="wrap library-section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" id="libraryEyebrow">Your recitation library</div>
+          <h2 id="libraryTitle">Top 30 passages</h2>
+        </div>
+        <div class="view-note" id="viewNote">Tap a card to open the complete study view.</div>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" class="field search" type="search" placeholder="Search surah, reciter, mood…" autocomplete="off" />
+        <select id="tagFilter" class="field"><option value="">All moods</option></select>
+        <select id="sort" class="field">
+          <option value="rank">Curated rank</option>
+          <option value="surah">Surah number</option>
+          <option value="fav">Favorites first</option>
+        </select>
+      </div>
+
+      <div id="grid" class="passage-grid" aria-live="polite"></div>
+      <div id="empty" class="empty" hidden>No passages match your search.</div>
+    </section>
+
+    <section id="hadith" class="hadith-section">
+      <div class="wrap">
+        <div class="section-head light-head">
+          <div>
+            <div class="eyebrow" id="hadithEyebrow">Authentic hadith companion</div>
+            <h2 id="hadithTitle">Qur'an-related hadith, with grades and explanations</h2>
+          </div>
+          <a class="btn" target="_blank" rel="noopener" href="https://hadeethenc.com/" id="hadithSourceBtn">Open HadeethEnc ↗</a>
+        </div>
+        <p class="section-intro" id="hadithIntro">This area loads translated hadith directly from HadeethEnc. We do not invent verse-to-hadith links; the collection is kept separate unless a source explicitly establishes the connection.</p>
+        <div id="hadithStatus" class="status-card">Select “Load authentic hadith” to fetch the Qur'an-related category in your current language.</div>
+        <div class="hadith-actions"><button id="loadHadith" class="btn primary" type="button">Load authentic hadith</button></div>
+        <div id="hadithGrid" class="hadith-grid"></div>
+      </div>
+    </section>
+
+    <section class="wrap sources-section">
+      <div class="section-head">
+        <div><div class="eyebrow" id="sourcesEyebrow">Transparency</div><h2 id="sourcesTitle">Sources & methodology</h2></div>
+      </div>
+      <div class="sources-grid">
+        <article><h3>Qur'an text & audio</h3><p>Arabic Uthmani text and Mishary Rashid Alafasy audio are requested from AlQuran Cloud. If the service is unavailable, the exact Mushaf scan remains available.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">AlQuran Cloud API ↗</a></article>
+        <article><h3>Translations</h3><p>English: Rowwad Translation Center. Bangla: Dr. Abu Bakr Muhammad Zakaria. Hindi: Azizul Haq Umari. Text is shown from QuranEnc without rewriting.</p><a href="https://quranenc.com/" target="_blank" rel="noopener">QuranEnc ↗</a></article>
+        <article><h3>Explanations / tafsir</h3><p>Bangla and Hindi use QuranEnc's translated Al-Mukhtasar where available. English uses Tafsir Ibn Kathir via Al Furqan API, with a direct Quran.com tafsir link as an additional reference.</p><a href="https://alfurqan.online/docs" target="_blank" rel="noopener">Al Furqan API ↗</a></article>
+        <article><h3>Mushaf appearance</h3><p>The visual style in your reference is a scanned Mushaf page, not merely a webfont. Each selection therefore keeps a direct link to the original eQuran Institute scan.</p><a href="https://www.equraninstitute.com/quranreading/index.htm" target="_blank" rel="noopener">eQuran Institute ↗</a></article>
+      </div>
+      <p class="legal-note">Translations and explanations remain the work of their respective publishers. This site displays them with source attribution and does not present any human translation as the Qur'an itself.</p>
+    </section>
+  </main>
+
+  <dialog id="studyDialog" class="study-dialog">
+    <div class="dialog-shell">
+      <header class="dialog-head">
+        <div><div id="dialogKicker" class="dialog-kicker"></div><h2 id="dialogTitle"></h2></div>
+        <button id="closeDialog" class="close-btn" type="button" aria-label="Close">×</button>
+      </header>
+      <div class="study-layout">
+        <aside class="study-sidebar">
+          <div id="passageSummary"></div>
+          <div class="side-actions">
+            <a id="exactMushaf" class="btn gold" target="_blank" rel="noopener">Exact Mushaf ↗</a>
+            <a id="recitationLink" class="btn" target="_blank" rel="noopener">Featured recitation ↗</a>
+          </div>
+          <div class="source-box">
+            <b id="translationSourceTitle">Translation source</b>
+            <span id="translationSource"></span>
+          </div>
+        </aside>
+        <section class="study-main">
+          <div class="study-tabs" role="tablist">
+            <button class="tab active" data-tab="ayahs" type="button">Ayah study</button>
+            <button class="tab" data-tab="notes" type="button">Passage notes</button>
+          </div>
+          <div id="ayahPanel" class="tab-panel active"></div>
+          <div id="notesPanel" class="tab-panel">
+            <div class="notes-card">
+              <h3 id="notesTitle">Your private notes</h3>
+              <p id="notesHelp">Saved only in this browser on this device. A database is intentionally not required for this version.</p>
+              <textarea id="passageNotes" rows="14" placeholder="Write reflections, tajwid reminders, memorisation cues…"></textarea>
+              <div class="notes-footer"><span id="notesSaved">Saved automatically</span><button id="clearNotes" class="btn" type="button">Clear</button></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <template id="ayahTemplate">
+    <article class="ayah-card">
+      <div class="ayah-top"><span class="ayah-number"></span><div class="ayah-tools"><button class="mini-btn play-btn" type="button">▶</button><a class="mini-btn tafsir-link" target="_blank" rel="noopener">Quran.com ↗</a></div></div>
+      <div class="ayah-arabic" dir="rtl"></div>
+      <div class="ayah-block"><span class="label translation-label">Translation</span><div class="ayah-translation"></div><div class="footnotes"></div></div>
+      <details class="tafsir-details"><summary class="explanation-label">Explanation / Tafsir</summary><div class="ayah-tafsir loading-line">Open to load explanation.</div></details>
+      <details class="ayah-note-details"><summary class="note-label">My note for this ayah</summary><textarea class="ayah-note" rows="3"></textarea></details>
+      <audio class="ayah-audio" preload="none"></audio>
+    </article>
+  </template>
+
+  <script src="passages.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
