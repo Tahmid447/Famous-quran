@@ -1,0 +1,2 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {wanted}=require('../api/recordings.js');
+test('Yasser Al-Dosari requires both given name and surname',()=>{const w=wanted.find(x=>x.name==='Yasser Al-Dosari');for(const correct of ['Yasser Al Dosari','Yasser Al-Dossary','Yaser Aldosari'])assert(w.pattern.test(correct),correct);for(const wrong of ['Yasser Salamah','Ibrahim Aldosari','Ali Ahmad Al Dosari','Ibrahim Idris'])assert(!w.pattern.test(wrong),wrong);});

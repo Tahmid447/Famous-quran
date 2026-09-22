@@ -3,7 +3,7 @@ const wanted=[
  {name:'Mishary Rashid Alafasy',pattern:/mishar[yi]|alafas|al.?afas/i,page:'127'},
  {name:'Abdul Rahman Al-Sudais',pattern:/sudais|sudaes|sudays|sodais/i,page:'66'},
  {name:'Abdul Rahman Al-Ossi',pattern:/al.?ossi|al.?oosi|al.?oussi|aloosi|al.?os[si]+/i},
- {name:'Yasser Al-Dosari',pattern:/doss?ar[iy]|doss?er[iy]|dawsar[iy]/i,page:'137'},
+ {name:'Yasser Al-Dosari',pattern:/^(?=.*yass?[ei]r)(?=.*(?:doss?ar|dawsar)).*$/i,page:'137'},
  {name:'Muhammad Al-Luhaidan',pattern:/luhaidan|lohaidan|luhaiden/i}
 ];
 const cache=new Map();

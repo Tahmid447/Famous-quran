@@ -16,8 +16,8 @@ jobs:
       - name: Build and validate
         run: |
           node build.mjs
-          if [ -f upgrade.mjs ]; then node upgrade.mjs; fi
-          if [ -f tests/repair.test.cjs ]; then node --test tests/repair.test.cjs; fi
+          node upgrade.mjs
+          node --test tests/*.test.cjs
       - name: Read-only live source audit
         run: node tests/live-sources.mjs
       - uses: actions/setup-python@v5
