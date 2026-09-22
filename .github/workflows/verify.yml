@@ -1,32 +1,44 @@
 name: Verify Famous Quran
 on:
   push:
-    branches: [main, 'repair/**']
   pull_request:
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Build and verify
+      - name: Build and validate
         run: |
           node build.mjs
           if [ -f upgrade.mjs ]; then node upgrade.mjs; fi
           if [ -f tests/repair.test.cjs ]; then node --test tests/repair.test.cjs; fi
-      - name: Archive committed source and verification report
+      - name: Read-only live source audit
+        run: node tests/live-sources.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Browser regression and live source checks
+        run: |
+          pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+          node tests/server.cjs > /tmp/fq-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+          python tests/browser.py
+      - name: Archive source and checks
         if: always()
         run: |
           mkdir -p verification-artifacts
-          git archive --format=zip HEAD -o verification-artifacts/source.zip
-          cp public/release.json verification-artifacts/ 2>/dev/null || true
+          git archive --format=zip HEAD > verification-artifacts/source.zip
+          cp public/release.json verification-artifacts/release.json || true
+          cp /tmp/fq-server.log verification-artifacts/server.log || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
