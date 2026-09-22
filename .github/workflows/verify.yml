@@ -1,0 +1,35 @@
+name: Verify Famous Quran
+on:
+  push:
+    branches: [main, 'repair/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and verify
+        run: |
+          node build.mjs
+          if [ -f upgrade.mjs ]; then node upgrade.mjs; fi
+          if [ -f tests/repair.test.cjs ]; then node --test tests/repair.test.cjs; fi
+      - name: Archive committed source and verification report
+        if: always()
+        run: |
+          mkdir -p verification-artifacts
+          git archive --format=zip HEAD -o verification-artifacts/source.zip
+          cp public/release.json verification-artifacts/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verified-source
+          path: verification-artifacts/
+          retention-days: 7
