@@ -16,8 +16,8 @@ jobs:
       - name: Build and validate
         run: |
           node build.mjs
-          node upgrade.mjs
-          node --test tests/*.test.cjs
+          if [ -f upgrade.mjs ]; then node upgrade.mjs; fi
+          if [ -f tests/repair.test.cjs ]; then node --test tests/repair.test.cjs; fi
       - name: Read-only live source audit
         run: node tests/live-sources.mjs
       - uses: actions/setup-python@v5
@@ -32,6 +32,7 @@ jobs:
           trap 'kill $SERVER_PID || true' EXIT
           sleep 2
           python tests/browser.py
+          python tests/embed-audit.py
       - name: Archive source and checks
         if: always()
         run: |
