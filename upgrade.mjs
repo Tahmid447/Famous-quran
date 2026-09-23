@@ -24,3 +24,5 @@ assert(!fs.readFileSync('experience-v3.js','utf8').includes('api/v3/videos?'));
 const {verify}=await import('./verify.mjs');const checks=await verify();checks.push('v3 controls translated in English Bangla Japanese','Ibrahim Idris Wycombe video pinned; unrelated publisher catalogue removed from repaired view','v3 scripts parse and all service-worker paths exist');
 const hash=createHash('sha256');for(const f of fs.readdirSync('public').sort())if(f!=='release.json')hash.update(f).update(fs.readFileSync('public/'+f));const revision=hash.digest('hex').slice(0,16);fs.writeFileSync('public/sw.js',worker.replaceAll('__REVISION__',revision));
 fs.writeFileSync('public/release.json',JSON.stringify({version:'3.0.0',revision,commit:process.env.VERCEL_GIT_COMMIT_SHA||'local',builtAt:new Date().toISOString(),checks,verificationScope:'Static validation and service-worker logic. See browser test report for additional checks.'},null,2));console.log('Famous Quran v3:',checks.length,'build checks passed');
+
+await import('./community-build.mjs');
