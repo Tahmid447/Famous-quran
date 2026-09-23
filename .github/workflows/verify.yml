@@ -2,6 +2,9 @@ name: Verify Famous Quran
 on:
   push:
   pull_request:
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -17,6 +20,8 @@ jobs:
         run: |
           node build.mjs
           if [ -f upgrade.mjs ]; then node upgrade.mjs; fi
+          node community-build.mjs
+          node --test tests/community.test.cjs
           if [ -f tests/repair.test.cjs ]; then node --test tests/repair.test.cjs; fi
       - name: Read-only live source audit
         run: node tests/live-sources.mjs
@@ -33,6 +38,7 @@ jobs:
           sleep 2
           python tests/browser.py
           python tests/ios-webkit.py
+          python tests/community-browser.py
           python tests/embed-audit.py
       - name: Archive source and checks
         if: always()
