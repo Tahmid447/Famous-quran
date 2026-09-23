@@ -14,3 +14,8 @@ body{background:var(--bg);color:var(--ink)}.site-header{background:var(--header)
 
 .global-audio-engine{position:fixed!important;left:-100px!important;top:-100px!important;width:1px!important;height:1px!important;opacity:.01!important;pointer-events:none!important}
 .audio-native-note{margin:10px 0;color:var(--muted);font-size:.78rem;line-height:1.55}
+
+.native-media-card{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:12px}
+.native-media-card video{display:block;width:100%;max-height:440px;background:#000;border-radius:12px;margin:10px 0}
+.native-media-card .control-row{margin-top:10px}
+@media(max-width:620px){.native-media-card{padding:8px}.native-media-card video{max-height:52vh}}
