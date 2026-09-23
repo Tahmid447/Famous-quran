@@ -26,12 +26,13 @@ jobs:
       - name: Browser regression and live source checks
         run: |
           pip install playwright==1.55.0
-          python -m playwright install --with-deps chromium
+          python -m playwright install --with-deps chromium webkit
           node tests/server.cjs > /tmp/fq-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           sleep 2
           python tests/browser.py
+          python tests/ios-webkit.py
           python tests/embed-audit.py
       - name: Archive source and checks
         if: always()
