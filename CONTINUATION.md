@@ -1,36 +1,44 @@
-# Community reading and native media checkpoint
+# Famous Quran: resumable community release checkpoint
 
-## This release
+## Working branch and production status
 
-- Existing passage IDs 1-30 and storage keys retained.
-- Source-based short reading guides in English, Bangla and Japanese. These are labelled paraphrases, not quotations or independent scholarly tafsir.
-- Separate complete-surah cards: Ya-Sin, Ar-Rahman, Al-Waqiah, As-Sajdah, Al-Mulk and Al-Fatihah.
-- Existing per-verse text, translation, explanation and reciter integrations reused; Al-Ossi and Al-Dosari remain clearly labelled full-surah audio where verse timing is unavailable.
-- Original eQuran scan sections linked in the existing reader.
-- Practice notes distinguish Quran-wide encouragement (Muslim 804a) from specific reports: As-Sajdah in Friday Fajr prayer (Bukhari 891), and Al-Mulk intercession (Tirmidhi 2891, Hasan/Darussalam).
-- No unverified after-Fajr Ya-Sin or after-Maghrib Al-Waqiah wealth promise is presented as an authenticated instruction.
-- User-permitted local MP4/audio input, permanently mounted native players, audio-only mode, standard/WebKit system-PiP calls, local save, native seek and volume controls. Files are not silently uploaded or published.
-- Stable audio node during navigation; duplicate UI progress callbacks removed; hidden-page YouTube UI refresh skipped; publisher audio no longer preloads every track. These are performance changes, not a guarantee about device temperature.
+Continue from feature/community-learning-native-media. Do not restart the application. Inspect main and the branch's latest verification run before claiming a production release. A Vercel success on a feature branch is only a preview.
 
-## Not completed / must not be misrepresented
+## Implemented changes
 
-- The requested Ibrahim Idris performance has not been supplied as a permitted MP4 file. No YouTube recording has been extracted or rehosted. Request one permitted source MP4 from the user; ffmpeg can produce the audio copy once supplied.
-- Local file import does not make a recording available to other visitors. Public hosting requires the actual permitted file and an explicit publication decision.
-- A physical iPhone screen-lock/background/PiP test has not been performed. Browser profiles and synthetic fixtures are not physical-device tests.
-- The YouTube player cannot be forced into system PiP by a parent page. In-site floating mode is not OS-level PiP.
-- New full-surah cards use identified publisher audio and YouTube search links. Additional popular-video IDs for other surahs have not been individually researched in this release.
-- Native audio-only MP4 playback does not create an exported MP3 file.
+- Original passage IDs 1-30 and existing notes/favorites preserved.
+- 36 short English/Bangla/Japanese source-based guides, explicitly labelled as paraphrases rather than quotations or independent scholarly tafsir.
+- Six complete-surah cards: Ya-Sin, Ar-Rahman, Al-Waqiah, As-Sajdah, Al-Mulk, Al-Fatihah.
+- Existing per-verse translations, explanations, four reciter choices and original eQuran scan reader retained. Ossi/Dosari remain full-surah when reliable verse timing is absent.
+- Practice notes link to Muslim 804a, Bukhari 891 and Tirmidhi 2891. No authenticated fixed-time Yasin/Waqiah wealth claim is invented.
+- Native MP4/audio import, audio-only playback of the same supplied file, native timeline/volume controls, local save and standard/WebKit PiP API calls.
+- Native players stay mounted across navigation. Duplicate progress work removed, hidden-page YouTube UI updates skipped, publisher audio preloading reduced.
+- Additional source-identified YouTube videos for Ya-Sin, Ar-Rahman and Al-Fatihah. Their full-surah ranges are not presented as exact excerpts. No global viral rank or live view count is claimed.
 
-## Build and tests
+## Verification recovery
 
-Run `node build.mjs && node upgrade.mjs && node community-build.mjs`, then both Node test files. The final build layer makes checked patches to generated public files and updates the service-worker revision.
+The earlier CI failed waiting for video readiness before a Play click in bundled Chromium. The revised test uses installed Chrome/Chromium where available, explicitly clicks Play, records codec support/errors, and still requires real H.264/AAC playback, advancing time, seek, audio-only switching, and local save. An isolated browser check of the actual application decoded a synthetic MP4 successfully. CI remains the production gate.
 
-CI preserves existing browser/source checks and adds `tests/community-browser.py`. That test distinguishes controlled data fixtures, synthetic H.264/AAC decoding, and actual-device verification.
+Build: node build.mjs && node upgrade.mjs && node community-build.mjs
+Unit checks: node --test tests/community.test.cjs tests/repair.test.cjs
+Browser checks: tests/browser.py, tests/ios-webkit.py, tests/community-browser.py, tests/embed-audit.py
+
+## Honest remaining work
+
+- The exact permitted Ibrahim Idris video has NOT been uploaded to this conversation. Ask for one MP4 with its sound; a separate MP3 is optional. No YouTube audio has been extracted or rehosted.
+- Local import is private to the device, not public hosting for other visitors. Public distribution requires the supplied file and a suitable hosting step.
+- Physical iPhone lock-screen/background/PiP testing has NOT been performed. Do not present emulation or a PiP method spy as proof of OS behavior.
+- YouTube embedding remains subject to YouTube/browser/account restrictions. In-page floating is not operating-system PiP.
+- The full-surah video expansion is not a complete video catalogue for all 30 passages. Some entries still use source/search links.
+- Exact publisher translation text is kept separate from editorial guide summaries. Do not label the summaries as verbatim tafsir.
 
 ## Sources
 
-- https://quranenc.com/ (translation titles and verse-level sources remain shown in the reader)
-- https://www.equraninstitute.com/quranreading/index.htm
-- https://sunnah.com/muslim:804a
-- https://sunnah.com/bukhari:891
-- https://sunnah.com/tirmidhi:2891
+https://quranenc.com/
+https://www.equraninstitute.com/quranreading/index.htm
+https://sunnah.com/muslim:804a
+https://sunnah.com/bukhari:891
+https://sunnah.com/tirmidhi:2891
+https://surahquran.com/video-sheikh-127-sora-36-en.html
+https://surahquran.com/video-sheikh-127-sora-55-en.html
+https://surahquran.com/video-sheikh-127-sora-1-en.html
