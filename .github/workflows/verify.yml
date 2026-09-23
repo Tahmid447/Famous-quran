@@ -32,6 +32,7 @@ jobs:
         run: |
           pip install playwright==1.55.0
           python -m playwright install --with-deps chromium webkit
+          sudo apt-get install --no-install-recommends -y ffmpeg
           node tests/server.cjs > /tmp/fq-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
