@@ -8,3 +8,5 @@ test('Catalogue matches surname and Alsudaes spelling without substitution',asyn
 
 
 test('Undocumented pseudo-ayah timing mode is rejected',async()=>{const r=response();await recordings({method:'GET',query:{surah:'25',kind:'ayah',reciter:'dosari'}},r);assert.equal(r.code,400);});
+
+test('Publisher native video validates HTTPS MP3Quran MP4 only',()=>{assert(recordings.secureVideo('https://www.mp3quran.net/uploads/videos/group1_pbuh/sample.mp4'));assert(!recordings.secureVideo('https://mp3quran.net.evil.example/uploads/videos/group1_pbuh/sample.mp4'));assert(!recordings.secureVideo('http://www.mp3quran.net/uploads/videos/group1_pbuh/sample.mp4'));assert(!recordings.secureVideo('https://www.mp3quran.net/uploads/videos/group1_pbuh/sample.html'));});
